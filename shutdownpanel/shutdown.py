@@ -9,7 +9,9 @@ ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 
 # Function template for running ssh commands on host
 def sshExec(host, cmd):
-    ssh.connect(host, 22, "root", "Utslettallenegere123") # host, port, user, pass
+    user = "" # Enter your desired username here
+    password = "" # Enter your desired password here
+    ssh.connect(host, 22, user, password) # host, port, user, pass
     ssh.exec_command(cmd)
     ssh.close()
 
