@@ -1,0 +1,56 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shutdown Panel NH - Data</title>¨
+    <link rel="stylesheet" href="../static/css/stylesheet.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+    <div class="mainbod">
+        <div class="innhold">
+            <a>Shutdown Panel</a>
+            <div class="monitoreringavhelvette">
+                <iframe src="http://192.168.10.15:3001/status/nh-data" width="400" height="550"></iframe>
+            </div>
+            <div class="helvetteskaperen">
+            <form action="/dashboard/" method="post">
+                <select name="clients" id="clients"></select>
+                <select name="cmds" id="cmds"></select>
+                <input type="submit" value="Utfør"></input>
+            </form>
+            <form action="/addclientpage/" method="post">
+                <input type="submit" value="Legg til klient"></input>
+            </form>
+            </div>
+
+            <script>
+                html = "";
+                const jsonData = JSON.parse({{jsonData|tojson}});
+                json = JSON.parse(jsonData)
+                for(var key in json) {
+                    html += "<option value=" + key  + ">" + json[key] + "</option>"
+                }
+                document.getElementById("clients").innerHTML = html;
+            </script>
+            <script>
+                html = "";
+                obj = {
+                    "'shutdown -h now'" : "Shutdown",
+                    "'shutdown -r now'" : "Reboot"
+                }
+                for(var key in obj) {
+                    html += "<option value=" + key  + ">" +obj[key] + "</option>"
+                }
+                document.getElementById("cmds").innerHTML = html;
+            </script>
+    </div>
+
+</body>
+</html>
